@@ -9,16 +9,19 @@ fish.src = 'fish.png';
 
 
 // Set the initial position of the image
-let posX = 1280;
-let posY = 0;
+let posX = 535;
+let posY = 293;
 
 // Set the size of the image
-const width = 200;
-const height = 121;
+const width = 167;
+const height = 77;
 
-let speed = 10; // the speed at which the image moves
-let checkH = 0;
-let checkV = 0;
+let speed = 5; // the speed at which the image moves
+let checkH = true;
+let checkV = false;
+
+let checkR1 = false;
+let checkR2 = false;
 
 // Draw the image on the canvas
 fish.onload = function() {
@@ -30,57 +33,72 @@ let isDragging = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 let isDown = false;
+let isMouseThere = false;
 
 
+//random adjust speed every ten seconds:
+setInterval(function() {
+    speed = Math.floor(Math.random() * 15) + 1;
+    console.log(speed);
+  }, 10000); // 10000 milliseconds = 10 seconds
 
-// Update the position of the image every 10 milliseconds
+
 
   setInterval(function() {
-    if(isDown == false){
+    console.log(speed);
+    if(isDown == false && isMouseThere == false){
       // check if fish is at left edge of canvas
       if (posX <= 0) {
         // set check to move fish right
-        checkH = 0;
+        checkH = false;
         console.log('HIT LEFT SIDE!!!!!!!!!!!!');
-        fish.src = 'fishR.png';
+
       }
-      else if(posY >= 720) {
-        checkV = 0;
+      else if(posY >= 645) {
+        checkV = false;
       }
       // check if fish is at right edge of canvas
       else if (posX + width >= 1280) {
         // set check to move fish left
-        checkH = 1;
+        checkH = true;
         console.log('HIT RIGHT SIDE!!!!!!!!!!!!');
-        fish.src = 'fish.png';
       }
-      else if(posY  + height < 0) {
-        checkV = 1;
+      else if(posY + height <= 75) {
+        checkV = true;
+      }
+
+      if(Math.floor(Math.random() * 20) + 1 == (1 || 2)){
+        checkV = !checkV;
+      }
+      if(Math.floor(Math.random() * 30) + 1 == (1 || 2)){
+        checkH = !checkH
       }
 
 
 
 
       // update position based on check value
-      if (checkH == 1) {
+      if (checkH == true) {
         posX -= speed;
-        if(checkV == 0) {
-          posY += speed;
+        fish.src = 'fish.png';
+        if(checkV == false) {
+          posY -= speed;
         }
         else{
-          posY -= speed;
+          posY += speed;
         }
         console.log('moving left');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(fish, posX, posY, width, height);
-      } 
-      else if (checkH == 0)  {
+      }
+      else if (checkH == false)  {
         posX += speed;
-        if(checkV == 1){
-          posY -= speed;
+        fish.src = 'fishR.png';
+        if(checkV == true){
+          posY += speed;
         }
         else{
-          posY += speed;
+          posY -= speed;
         }
         console.log('moving right');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -90,7 +108,7 @@ let isDown = false;
     else {
       console.log('inInterval: ' + isDown)
     }
-  }, 10);
+  }, 50);
 
 
 
@@ -125,7 +143,21 @@ canvas.addEventListener('mousemove', function(event) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(fish, posX, posY, width, height);
   }
+
+
+
 });
+
+canvas.addEventListener("mouseover", function(event) {
+  console.log("Mouse entered the canvas!");
+  isMouseThere = true;
+});
+
+canvas.addEventListener("mouseout", function(event) {
+  console.log("Mouse left the canvas!");
+  isMouseThere = false;
+});
+
 
 // Listen for mouseup event
 canvas.addEventListener('mouseup', function(event) {
