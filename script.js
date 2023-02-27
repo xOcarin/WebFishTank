@@ -17,7 +17,8 @@ const width = 200;
 const height = 121;
 
 let speed = 10; // the speed at which the image moves
-let check = true;
+let checkH = 0;
+let checkV = 0;
 
 // Draw the image on the canvas
 fish.onload = function() {
@@ -39,23 +40,48 @@ let isDown = false;
       // check if fish is at left edge of canvas
       if (posX <= 0) {
         // set check to move fish right
-        check = false;
+        checkH = 0;
+        console.log('HIT LEFT SIDE!!!!!!!!!!!!');
         fish.src = 'fishR.png';
+      }
+      else if(posY >= 720) {
+        checkV = 0;
       }
       // check if fish is at right edge of canvas
       else if (posX + width >= 1280) {
         // set check to move fish left
-        check = true;
+        checkH = 1;
+        console.log('HIT RIGHT SIDE!!!!!!!!!!!!');
         fish.src = 'fish.png';
       }
+      else if(posY  + height < 0) {
+        checkV = 1;
+      }
+
+
+
+
       // update position based on check value
-      if (check) {
+      if (checkH == 1) {
         posX -= speed;
+        if(checkV == 0) {
+          posY += speed;
+        }
+        else{
+          posY -= speed;
+        }
         console.log('moving left');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(fish, posX, posY, width, height);
-      } else {
+      } 
+      else if (checkH == 0)  {
         posX += speed;
+        if(checkV == 1){
+          posY -= speed;
+        }
+        else{
+          posY += speed;
+        }
         console.log('moving right');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(fish, posX, posY, width, height);
