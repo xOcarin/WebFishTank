@@ -8,6 +8,13 @@ const fish = new Image();
 fish.src = 'fish.png';
 
 
+
+
+
+
+
+
+
 // Set the initial position of the image
 let posX = 535;
 let posY = 293;
@@ -171,9 +178,6 @@ canvas.addEventListener('mouseup', function(event) {
 
 
 });
-
-
-
 
 
 
