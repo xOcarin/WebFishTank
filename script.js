@@ -20,17 +20,67 @@ const fish = {
   isMouseThere: false,
 };
 
-fish.image.src = 'fish.png';
 
-fish.image.onload = function() {
+fish.image.src = 'fish_spritesheet.png';
+
+/*fish.image.onload = function() {
   ctx.drawImage(fish.image, fish.x, fish.y, fish.width, fish.height);
 };
 
-const randomSpeedInterval = setInterval(() => {
+//randomizing the fishes speed
+/*const randomSpeedInterval = setInterval(() => {
   fish.speed = Math.floor(Math.random() * 15) + 1;
   console.log(fish.speed);
-}, 10000);
+}, 10000);*/
 
+// Define the number of frames in the spritesheet
+const numFrames = 9;
+
+// Define the size of each frame
+const frameWidth = 167;
+const frameHeight = 77;
+
+// Define the x position of the first frame in the spritesheet
+const spriteSheetX = 0;
+
+// Define the y position of the frames in the spritesheet
+const spriteSheetY = 0;
+
+// Define the current frame index
+let currentFrame = 0;
+
+// Define the animation speed (in frames per second)
+const animationSpeed = 20;
+
+// Define the timestamp of the last frame
+let lastFrameTime = 0;
+
+function animateFish() {
+  // Calculate the time since the last frame
+  const currentTime = Date.now();
+  const deltaTime = currentTime - lastFrameTime;
+
+  // Only update the animation if enough time has elapsed
+  if (deltaTime >= 1000 / animationSpeed) {
+    // Calculate the source rectangle for the current frame
+    const sourceX = spriteSheetX + currentFrame * frameWidth;
+    const sourceY = spriteSheetY;
+    const sourceWidth = frameWidth;
+    const sourceHeight = frameHeight;
+
+    // Draw the current frame
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(fish.image, sourceX, sourceY, sourceWidth, sourceHeight, fish.x, fish.y, fish.width, fish.height);
+
+    // Increment the frame index
+    currentFrame = (currentFrame + 1) % numFrames;
+
+    // Update the timestamp of the last frame
+    lastFrameTime = currentTime;
+  }
+}
+
+// Call the animateFish function in the moveFishInterval
 const moveFishInterval = setInterval(() => {
   if (fish.isDown === false && fish.isMouseThere === false) {
     if (fish.x <= 0) {
@@ -54,276 +104,28 @@ const moveFishInterval = setInterval(() => {
 
     if (fish.checkH === true) {
       fish.x -= fish.speed;
-      fish.image.src = 'fish.png';
+      fish.image.src = 'fish_spritesheet.png';
       if (fish.checkV === false) {
         fish.y -= fish.speed;
       } else {
         fish.y += fish.speed;
       }
+      animateFish();
       console.log('moving left');
     } else if (fish.checkH === false) {
       fish.x += fish.speed;
-      fish.image.src = 'fishR.png';
+      fish.image.src = 'fish_spritesheetR.png';
       if (fish.checkV === true) {
         fish.y += fish.speed;
       } else {
         fish.y -= fish.speed;
       }
+      animateFish();
       console.log('moving right');
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(fish.image, fish.x, fish.y, fish.width, fish.height);
+
   } else {
     console.log('inInterval: ' + fish.isDown);
   }
-}, 50);
-
-
-
-
-// Listen for mousedown event
-canvas.addEventListener('mousedown', function(event) {
-  // Get the coordinates of the click relative to the canvas
-  const x = event.offsetX;
-  const y = event.offsetY;
-  // Check if the click occurred within the boundaries of the image
-  if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
-    isDragging = true;
-    isDown = true;
-    dragOffsetX = x - posX;
-    dragOffsetY = y - posY;
-  }
-  console.log('inevent: ' + isDown)
-});
-
-// Listen for mousemove event
-canvas.addEventListener('mousemove', function(event) {
-  if (isDragging) {
-    // Get the coordinates of the mouse relative to the canvas
-    const x = event.offsetX;
-    const y = event.offsetY;
-
-    // Update the position of the image
-    posX = x - dragOffsetX;
-    posY = y - dragOffsetY;
-
-    // Redraw the canvas with the updated position of the image
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(fish, posX, posY, width, height);
-  }
-
-
-
-});
-
-canvas.addEventListener("mouseover", function(event) {
-  console.log("Mouse entered the canvas!");
-  isMouseThere = true;
-});
-
-canvas.addEventListener("mouseout", function(event) {
-  console.log("Mouse left the canvas!");
-  isMouseThere = false;
-});
-
-
-// Listen for mouseup event
-canvas.addEventListener('mouseup', function(event) {
-  isDragging = false;
-  isDown = false;
-  /*posX = 410;
-  posY = 225;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, posX, posY, width, height);*/
-
-
-
-});
-
-
-
-
-
-
-window.addEventListener("load", function () {
-    update();
-});
-
-// Listen for mousemove event
-canvas.addEventListener('mousemove', function(event) {
-  if (isDragging) {
-    // Get the coordinates of the mouse relative to the canvas
-    const x = event.offsetX;
-    const y = event.offsetY;
-
-    // Update the position of the image
-    posX = x - dragOffsetX;
-    posY = y - dragOffsetY;
-
-    // Redraw the canvas with the updated position of the image
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(fish, posX, posY, width, height);
-  }
-
-
-
-});
-
-canvas.addEventListener("mouseover", function(event) {
-  console.log("Mouse entered the canvas!");
-  isMouseThere = true;
-});
-
-canvas.addEventListener("mouseout", function(event) {
-  console.log("Mouse left the canvas!");
-  isMouseThere = false;
-});
-
-
-// Listen for mouseup event
-canvas.addEventListener('mouseup', function(event) {
-  isDragging = false;
-  isDown = false;
-  /*posX = 410;
-  posY = 225;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, posX, posY, width, height);*/
-
-
-
-});
-
-
-
-
-
-
-window.addEventListener("load", function () {
-    update();
-});
-
-
-
-
-
-// Listen for mousedown event
-canvas.addEventListener('mousedown', function(event) {
-  // Get the coordinates of the click relative to the canvas
-  const x = event.offsetX;
-  const y = event.offsetY;
-  // Check if the click occurred within the boundaries of the image
-  if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
-    isDragging = true;
-    isDown = true;
-    dragOffsetX = x - posX;
-    dragOffsetY = y - posY;
-  }
-  console.log('inevent: ' + isDown)
-});
-
-// Listen for mousemove event
-canvas.addEventListener('mousemove', function(event) {
-  if (isDragging) {
-    // Get the coordinates of the mouse relative to the canvas
-    const x = event.offsetX;
-    const y = event.offsetY;
-
-    // Update the position of the image
-    posX = x - dragOffsetX;
-    posY = y - dragOffsetY;
-
-    // Redraw the canvas with the updated position of the image
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(fish, posX, posY, width, height);
-  }
-
-
-
-});
-
-canvas.addEventListener("mouseover", function(event) {
-  console.log("Mouse entered the canvas!");
-  isMouseThere = true;
-});
-
-canvas.addEventListener("mouseout", function(event) {
-  console.log("Mouse left the canvas!");
-  isMouseThere = false;
-});
-
-
-// Listen for mouseup event
-canvas.addEventListener('mouseup', function(event) {
-  isDragging = false;
-  isDown = false;
-  /*posX = 410;
-  posY = 225;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, posX, posY, width, height);*/
-
-
-
-});
-
-
-
-
-
-
-window.addEventListener("load", function () {
-    update();
-});
-
-// Listen for mousemove event
-canvas.addEventListener('mousemove', function(event) {
-  if (isDragging) {
-    // Get the coordinates of the mouse relative to the canvas
-    const x = event.offsetX;
-    const y = event.offsetY;
-
-    // Update the position of the image
-    posX = x - dragOffsetX;
-    posY = y - dragOffsetY;
-
-    // Redraw the canvas with the updated position of the image
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(fish, posX, posY, width, height);
-  }
-
-
-
-});
-
-canvas.addEventListener("mouseover", function(event) {
-  console.log("Mouse entered the canvas!");
-  isMouseThere = true;
-});
-
-canvas.addEventListener("mouseout", function(event) {
-  console.log("Mouse left the canvas!");
-  isMouseThere = false;
-});
-
-
-// Listen for mouseup event
-canvas.addEventListener('mouseup', function(event) {
-  isDragging = false;
-  isDown = false;
-  /*posX = 410;
-  posY = 225;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, posX, posY, width, height);*/
-
-
-
-});
-
-
-
-
-
-
-window.addEventListener("load", function () {
-    update();
-});
+}, 100);
