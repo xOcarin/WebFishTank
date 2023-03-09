@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<canvas id="canvas">
-<script src="script.js"> </script>
-<link rel="stylesheet" href="style.css"></link>
-<!-- <img id="image" src="https://m1.behance.net/rendition/modules/74723571/disp/0beedf48c9a000c812866297384c0cf4.png" style="display: none">!-->
-  </canvas>
-<button id="play-button">Play</button>
-<script>
-  const audio = new Audio('music.mp3');
-
-  const playButton = document.getElementById('play-button');
-  playButton.addEventListener('click', function() {
-    audio.play();
-  });
-</script>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <img src="logo.gif" class="logo">
+    <script src="script.js"></script>
+  </body>
+</html>

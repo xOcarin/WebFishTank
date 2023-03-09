@@ -1,13 +1,13 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = 1280;
-canvas.height = 720;
+canvas.width = 3840;
+canvas.height = 2160;
 const fish = {
   image: new Image(),
-  x: 535,
-  y: 293,
-  width: 167,
-  height: 77,
+  x: 1900,
+  y: 1700,
+  width: 220,
+  height: 101,
   speed: 5,
   checkH: true,
   checkV: false,
@@ -21,7 +21,7 @@ const fish = {
 };
 
 
-fish.image.src = 'fish_spritesheet.png';
+fish.image.src = 'fish_spritesheet2.png';
 
 /*fish.image.onload = function() {
   ctx.drawImage(fish.image, fish.x, fish.y, fish.width, fish.height);
@@ -50,7 +50,7 @@ const spriteSheetY = 0;
 let currentFrame = 0;
 
 // Define the animation speed (in frames per second)
-const animationSpeed = 20;
+const animationSpeed = 15;
 
 // Define the timestamp of the last frame
 let lastFrameTime = 0;
@@ -86,9 +86,9 @@ const moveFishInterval = setInterval(() => {
     if (fish.x <= 0) {
       fish.checkH = false;
       console.log('HIT LEFT SIDE!!!!!!!!!!!!');
-    } else if (fish.y >= 645) {
+    } else if (fish.y >= 2085) {
       fish.checkV = false;
-    } else if (fish.x + fish.width >= 1280) {
+    } else if (fish.x + fish.width >= 3840) {
       fish.checkH = true;
       console.log('HIT RIGHT SIDE!!!!!!!!!!!!');
     } else if (fish.y + fish.height <= 75) {
