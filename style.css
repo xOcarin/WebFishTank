@@ -1,11 +1,13 @@
-
-
-
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
   background: #F6F7BD;
+  display: grid;
+    grid-template-areas:
+        "header header header"
+        "footer footer footer";
+    grid-template-columns: 20% 60% 20%;
 }
 
 canvas {
@@ -19,11 +21,77 @@ canvas {
   background-size: cover;
 }
 
+
+
+
+
 .logo {
   display: block;
-  margin: 0 auto;
   max-width: 50%;
   height: auto;
-  margin-top: -100px;
+  margin-top: -50px;
   width: 700px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+.topbutton {
+  display: block;
+  max-width: 50%;
+  height: auto;
+  width: 700px;
+  position: fixed;
+  margin-top: -25px;
+}
+
+
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
 }

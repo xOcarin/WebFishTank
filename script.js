@@ -1,13 +1,19 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+let width = window.innerWidth;
+let height = window.innerHeight;
 canvas.width = 3840;
 canvas.height = 2160;
+
+
+const originalFishWidth = canvas.width * 0.0572916666666667;
+const originalFishHeight = canvas.height * 0.0467592592592593;
 const fish = {
   image: new Image(),
-  x: 1900,
-  y: 1700,
-  width: 220,
-  height: 101,
+  x: canvas.width/2,
+  y: canvas.height/2,
+  width: originalFishWidth,
+  height: originalFishHeight,
   speed: 5,
   checkH: true,
   checkV: false,
@@ -20,8 +26,25 @@ const fish = {
   isMouseThere: false,
 };
 
+function updateFishDimensions() {
+  const widthRatio = canvas.width / 3840;
+  const heightRatio = canvas.height / 2160;
+  const ratio = Math.min(widthRatio, heightRatio);
+  fish.width = originalFishWidth * ratio;
+  fish.height = originalFishHeight * ratio;
+  fish.x = canvas.width/2;
+  fish.y = canvas.height/2;
+}
 
-fish.image.src = 'fish_spritesheet2.png';
+window.addEventListener('resize', () => {
+  width = window.innerWidth;
+  height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+  updateFishDimensions(); // call function on resize
+});
+
+window.dispatchEvent(new Event('resize'));
 
 /*fish.image.onload = function() {
   ctx.drawImage(fish.image, fish.x, fish.y, fish.width, fish.height);
@@ -85,12 +108,12 @@ const moveFishInterval = setInterval(() => {
   if (fish.isDown === false && fish.isMouseThere === false) {
     if (fish.x <= 0) {
       fish.checkH = false;
-      console.log('HIT LEFT SIDE!!!!!!!!!!!!');
-    } else if (fish.y >= 2085) {
+      //console.log('HIT LEFT SIDE!!!!!!!!!!!!');
+    } else if (fish.y >= (canvas.height - 75)) {
       fish.checkV = false;
-    } else if (fish.x + fish.width >= 3840) {
+    } else if (fish.x + fish.width >= canvas.width) {
       fish.checkH = true;
-      console.log('HIT RIGHT SIDE!!!!!!!!!!!!');
+      //console.log('HIT RIGHT SIDE!!!!!!!!!!!!');
     } else if (fish.y + fish.height <= 75) {
       fish.checkV = true;
     }
@@ -111,7 +134,7 @@ const moveFishInterval = setInterval(() => {
         fish.y += fish.speed;
       }
       animateFish();
-      console.log('moving left');
+      //console.log('moving left');
     } else if (fish.checkH === false) {
       fish.x += fish.speed;
       fish.image.src = 'fish_spritesheetR.png';
@@ -121,7 +144,7 @@ const moveFishInterval = setInterval(() => {
         fish.y -= fish.speed;
       }
       animateFish();
-      console.log('moving right');
+      //console.log('moving right');
     }
 
 
