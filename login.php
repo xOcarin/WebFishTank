@@ -1,9 +1,9 @@
 <?php
 session_start();
-$servername = "localhost"; // replace with your database hostname
-$username = "id20422256_ocarin"; // replace with your database username
-$password = "ShittyFart!5"; // replace with your database password
-$dbname = "id20422256_users"; // replace with your database name
+$servername = "localhost";
+$username = "id20422256_ocarin";
+$password = "ShittyFart!5";
+$dbname = "id20422256_users";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -30,8 +30,9 @@ if ($result->num_rows == 1) {
         session_regenerate_id();
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['username'] = $username;
-        $_SESSION['userid'] = $row['userId'];
-        echo 'Welcome ' . $_SESSION['username'] . '!';
+        $_SESSION['userid'] = $row['usersId'];
+        header("Location: index.html");
+        exit;
     } else {
         // Password is incorrect
         echo 'Incorrect username or password!';

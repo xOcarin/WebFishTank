@@ -10,18 +10,10 @@ body {
     grid-template-columns: 20% 60% 20%;
 }
 
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-image: url("massive water.png");
-  background-size: cover;
+@font-face {
+  font-family: 'Comic Sans';
+  src: url('comicsans.ttf') format('truetype');
 }
-
-
 
 
 
@@ -36,9 +28,7 @@ canvas {
   transform: translateX(-50%);
 }
 
-
-
-.topbutton {
+.leftbutton {
   display: block;
   max-width: 50%;
   height: auto;
@@ -47,6 +37,16 @@ canvas {
   margin-top: -25px;
 }
 
+.rightbutton {
+  display: block;
+  max-width: 50%;
+  height: auto;
+  width: 700px;
+  position: fixed;
+  right: 0;
+  margin-top: -25px;
+  transform: translateX(71%);
+}
 
 .login-container {
   position: absolute;
@@ -64,6 +64,19 @@ canvas {
   flex-direction: column;
   align-items: center;
 }
+
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("massive water.png");
+  background-size: cover;
+}
+
 
 label {
   font-size: 18px;
