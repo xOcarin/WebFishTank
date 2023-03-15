@@ -1,5 +1,6 @@
 
 let users = [];
+let fishtypes = [];
 let fishAmt = 0;
 
 function getUsernames() {
@@ -12,6 +13,7 @@ function getUsernames() {
         usernames = data;
         usernames.forEach(function(username) {
           users[i] = usernames[i];
+          console.log('shits');
           i++;
         });
         fishAmt = usernames.map(username => username.trim()).length;
@@ -24,13 +26,44 @@ function getUsernames() {
   });
 }
 
+function getFishtypes() {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: "getfishtypes.php",
+      dataType: "json",
+      success: function(data) {
+        let i = 0;
+        types = data;
+        types.forEach(function(type) {
+          fishtypes[i] = types[i];
+          i++;
+          console.log('fucks');
+        });
+        console.log("heref" + fishtypes); // Move console log statement here
+        resolve();
+      },
+      error: function(error) {
+        reject(error);
+      }
+    });
+  });
+}
+
 getUsernames()
   .then(() => {
+    getFishtypes()
+      .then(() => {
+
+
     // Code that needs the data from the AJAX call can be executed here
     class Fish {
-      constructor(x, y, width, height, speed, ctx, name) {
+      constructor(x, y, width, height, speed, ctx, name, type) {
         this.image = new Image();
-        this.image.src = 'fish_spritesheet.png';
+        this.imageR = new Image();
+        this.imageL = new Image();
+        this.image.src;
+        this.imageR.src;
+        this.imageL.src;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -40,9 +73,9 @@ getUsernames()
         this.checkV = false;
         this.originalWidth = canvas.width * 0.0572916666666667;
         this.originalHeight = canvas.height * 0.0467592592592593;
-        this.numFrames = 9;
-        this.frameWidth = 167;
-        this.frameHeight = 77;
+        this.numFrames;
+        this.frameWidth;
+        this.frameHeight;
         this.spriteSheetX = 0;
         this.spriteSheetY = 0;
         this.currentFrame = 0;
@@ -50,6 +83,7 @@ getUsernames()
         this.lastFrameTime = 0;
         this.name = name;
         this.ctx;
+        this.type = type;
       }
 
       updateDimensions() {
@@ -66,6 +100,60 @@ getUsernames()
         const currentTime = Date.now();
         const deltaTime = currentTime - this.lastFrameTime;
 
+        console.log(typeof this.type, this.type);
+        switch (this.type) {
+          case "1":
+            this.imageL.src = 'fish_spritesheet.png';
+            this.imageR.src = 'fish_spritesheetR.png';
+            this.numFrames = 9;
+            this.frameWidth = 167;
+            this.frameHeight = 77;
+            break;
+          case "2":
+            this.imageL.src = 'Beepo_Bass_spritesheetL.png';
+            this.imageR.src = 'Beepo_Bass_spritesheetR.png';
+            this.numFrames = 15;
+            this.frameWidth = 200;
+            this.frameHeight = 77;
+            break;
+          case "3":
+            this.imageL.src = 'rainbow_Bass_spritesheetL.png';
+            this.imageR.src = 'rainbow_Bass_spritesheetR.png';
+            this.numFrames = 15;
+            this.frameWidth = 200;
+            this.frameHeight = 77;
+            break;
+          case "4":
+            this.imageL.src = 'Bass_spritesheet.png';
+            this.imageR.src = 'Bass_spritesheetR.png';
+            this.numFrames = 15;
+            this.frameWidth = 172;
+            this.frameHeight = 77;
+            break;
+          case "5":
+            this.imageL.src = 'Uber_Bass_spritesheetL.png';
+            this.imageR.src = 'Uber_Bass_spritesheetR.png';
+            this.numFrames = 15;
+            this.frameWidth = 200;
+            this.frameHeight = 77;
+            break;
+          case "6":
+            this.imageL.src = 'Sherbert_Bass_spritesheetL.png';
+            console.log('helloooooooooo');
+            this.imageR.src = 'Sherbert_Bass_spritesheetR.png';
+            this.numFrames = 15;
+            this.frameWidth = 200;
+            this.frameHeight = 77;
+            break;
+          default:
+            this.imageL.src = 'fish_spritesheet.png';
+            this.imageR.src = 'fish_spritesheetR.png';
+            this.numFrames = 9;
+            this.frameWidth = 167;
+            this.frameHeight = 77;
+      }
+
+
         if (deltaTime >= 1000 / this.animationSpeed) {
           const sourceX = this.spriteSheetX + this.currentFrame * this.frameWidth;
           const sourceY = this.spriteSheetY;
@@ -73,6 +161,7 @@ getUsernames()
           const sourceHeight = this.frameHeight;
 
           //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
           ctx.drawImage(this.image, sourceX, sourceY, sourceWidth, sourceHeight, this.x, this.y, this.width, this.height);
 
           // get the width of the text
@@ -112,7 +201,7 @@ getUsernames()
 
         if (this.checkH === true) {
           this.x -= this.speed;
-          this.image.src = 'fish_spritesheet.png';
+          this.image = this.imageL;
           if (this.checkV === false) {
             this.y -= this.speed;
           } else {
@@ -121,7 +210,8 @@ getUsernames()
           //this.animate();
         } else if (this.checkH === false) {
           this.x += this.speed;
-          this.image.src = 'fish_spritesheetR.png';
+          this.image = this.imageR;
+
           if (this.checkV === true) {
             this.y += this.speed;
           } else {
@@ -133,9 +223,6 @@ getUsernames()
 
 
 
-    console.log(users);
-    console.log(fishAmt);
-
     // Rest of the program that requires the `users` array and `fishAmt` variable
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
@@ -145,11 +232,13 @@ getUsernames()
     canvas.height = 2160;
     const numFish = fishAmt;
     const allFish = [];
+    console.log('it better be');
 
     for (let i = 0; i < numFish; i++) {
 
-      allFish.push(new Fish(canvas.width/2, canvas.height/2, canvas.width * 0.0572916666666667, canvas.height * 0.0467592592592593, 5, ctx, users[i]));
-      console.log("test: " + allFish[i].name);
+      allFish.push(new Fish(canvas.width/2, canvas.height/2, canvas.width * 0.0572916666666667, canvas.height * 0.0467592592592593, 5, ctx, users[i], fishtypes[i]));
+      console.log("testf: " + allFish[i].name);
+      console.log("ghsfdasd");
     }
 
     function updateFishDimensions() {
@@ -203,6 +292,4 @@ getUsernames()
     }, 100);
 
   })
-  .catch(error => {
-    console.log(error);
-  });
+});

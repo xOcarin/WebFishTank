@@ -21,7 +21,9 @@ body {
   display: block;
   max-width: 50%;
   height: auto;
-  margin-top: -50px;
+  margin-top: 50px;
+  margin-right: 50px;
+  margin-left: 50px;
   width: 700px;
   position: fixed;
   left: 50%;
