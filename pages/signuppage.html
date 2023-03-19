@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <div class="leftbutton-container">
+      <a href="../index.html" class= "leftbutton"><img src="../assets/backbutton.png"></a>
+    </div>
+    <div class="logo-container">
+    <center><img src="../assets/logo.gif" class="logo"></center>
+    </div>
+    <div class="rightbutton-container">
+      <a class="rightbutton"><img style="opacity: 0;" src="../assets/createbutton.png"></a>
+    </div>
+  </head>
+  <link rel="stylesheet" href="../styles/style.css">
+  <body>
+    <canvas id="canvas"></canvas>
+    <div class="login-container">
+      <form class="login-form" action="../phphandlers/signup.php" method="post">
+        <label for="username">Email</label>
+        <input type="text" id="email" name="email">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <button type="submit">Signup</button>
+      </form>
+      <script src="../scripts/script.js"></script>
+    </div>
+  </body>
+</html>
