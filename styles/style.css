@@ -6,44 +6,67 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
   height: 10vh;
+  width: 150vw;
 }
 
 .header {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: auto;
   width: 100%;
   height: 50px;
+  position: relative;
 }
 
 .logo {
-  max-width:50%;
+  max-width: 50%;
   height: auto;
   margin: 0 auto;
+  position: absolute;
   left: 50%;
-  right: 50%;
+  transform: translateX(-50%);
 }
 
 .buttons {
   display: flex;
-  width: 100%;
 }
 
+.leftbutton img,
+.rightbutton img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.leftbutton,
+.rightbutton {
+  position: absolute;
+  top: 0;
+  padding: 5px;
+  width: 320px;
+  height: 151px;
+}
+
+
 .leftbutton {
-  max-width: 50%;
-  height: auto;
-  width: 700px;
-  margin-top: -25px;
+  position: absolute;
+  left: 145px; /* assuming button width is 300px */
+  transform: translateX(-100%);
+  padding: 5px 10px;
+  font-size: 14px;
+  display: inline-block;
 }
 
 .rightbutton {
-  max-width: 50%;
-  height: auto;
-  width: 700px;
-  margin-top: -25px;
+  position: absolute;
+  right: 135px;
+  transform: translateX(100%);
+  padding: 5px 10px;
+  font-size: 14px;
+  display: inline-block;
 }
+
 
 .footer {
   display: flex;
