@@ -31,7 +31,12 @@ if ($result->num_rows == 1) {
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['username'] = $username;
         $_SESSION['userid'] = $row['usersId'];
-        header("Location: index.html");
+
+        // Set a cookie to store the session ID
+        setcookie('username', $username, time() + 3600);
+
+
+        header('Location: ../index.html?username=' . $username);
         exit;
     } else {
         // Password is incorrect
@@ -45,4 +50,5 @@ if ($result->num_rows == 1) {
 }
 
 $conn->close();
+
 ?>

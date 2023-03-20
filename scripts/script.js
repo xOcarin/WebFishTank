@@ -1,4 +1,3 @@
-
 let users = [];
 let fishtypes = [];
 let fishAmt = 0;
@@ -89,7 +88,6 @@ getUsernames()
         const currentTime = Date.now();
         const deltaTime = currentTime - this.lastFrameTime;
 
-        console.log(typeof this.type, this.type);
         switch (this.type) {
           case "1":
             this.imageL.src = '../assets/fish/fish_spritesheet.png';

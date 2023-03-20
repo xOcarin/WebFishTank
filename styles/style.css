@@ -58,6 +58,10 @@ body {
   display: inline-block;
 }
 
+#login-button:hover{
+  transform: translateX(-70%);
+}
+
 .rightbutton {
   position: absolute;
   right: 135px;
@@ -67,6 +71,9 @@ body {
   display: inline-block;
 }
 
+#signup-button:hover {
+  transform: translateX(70%);
+}
 
 .footer {
   display: flex;
