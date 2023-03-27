@@ -2,15 +2,86 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #F6F7BD;
-  display: grid;
-    grid-template-areas:
-        "header header header"
-        "blank canvas2 blank"
-        "footer footer footer";
-    grid-template-columns: 20% 60% 20%;
+  background-image: url("../assets/bg/water.png");
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 10vh;
+  width: 150vw;
 }
 
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: auto;
+  width: 100%;
+  height: 50px;
+  position: relative;
+}
+
+.logo {
+  max-width: 50%;
+  height: auto;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.buttons {
+  display: flex;
+}
+
+.leftbutton img,
+.rightbutton img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.leftbutton,
+.rightbutton {
+  position: absolute;
+  top: 0;
+  padding: 5px;
+  width: 320px;
+  height: 151px;
+}
+
+
+.leftbutton {
+  position: absolute;
+  left: 145px; /* assuming button width is 300px */
+  transform: translateX(-100%);
+  padding: 5px 10px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+#login-button:hover{
+  transform: translateX(-70%);
+}
+
+.rightbutton {
+  position: absolute;
+  right: 135px;
+  transform: translateX(100%);
+  padding: 5px 10px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+#signup-button:hover {
+  transform: translateX(70%);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+}
 
 
 #canvas2 {
@@ -18,9 +89,10 @@ body {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #F6F7BD;
+  background-color: black;
   background-size: auto;
   opacity: 1;
+  z-index: -1;
 }
 
 #canvas {
@@ -30,35 +102,6 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-image: url("massive water.png");
+  background-image: url("water.png");
   background-size: cover;
-}
-
-
-@font-face {
-  font-family: 'Comic Sans';
-  src: url('comicsans.ttf') format('truetype');
-}
-
-
-
-.logo {
-  display: block;
-  max-width: 25%;
-  height: auto;
-  margin: 0 auto;
-  position: fixed;
-  top: 25px;
-  left: 0;
-  right: 0;
-}
-
-
-.leftbutton {
-  display: block;
-  max-width: 50%;
-  height: auto;
-  width: 700px;
-  position: fixed;
-  margin-top: -25px;
 }
